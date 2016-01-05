@@ -1,0 +1,12 @@
+{
+  "name": "<%= ionicProjectName %>",
+  "app_id": "",
+  "gulpStartupTasks": [
+    "build",
+    "watch"
+  ],
+  "watchPatterns": [
+    "app/**/*",
+    "!app/lib/**/*"
+  ]
+}

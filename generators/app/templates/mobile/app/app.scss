@@ -1,0 +1,65 @@
+/*
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+*/
+
+/* App wide font change ***********************************************************************************************/
+
+@font-face {
+  font-family: 'SanFrancisco';
+  src: url('fonts/SF-UI-Display-Thin.otf') format('opentype');
+  font-weight: lighter;
+}
+
+@font-face {
+  font-family: 'SanFrancisco';
+  src: url('fonts/SF-UI-Display-Light.otf') format('opentype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'SanFrancisco';
+  src: url('fonts/SF-UI-Display-Regular.otf') format('opentype');
+  font-weight: bold;
+}
+
+$font-family-base: 'SanFrancisco', sans-serif !default;
+
+// The path for our ionicons font files, relative to the built CSS in app/css
+$ionicons-font-path: 'fonts' !default;
+
+/**********************************************************************************************************************/
+
+// Include all of Ionic
+@import 'app/lib/managed/ionic/scss/ionic';
+
+// Ionic Modal slide-in-right animation
+// http://forum.ionicframework.com/t/slide-in-right-animation-for-ionicmodal/18882
+.slide-in-right {
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+
+.slide-in-right.ng-enter, .slide-in-right > .ng-enter {
+  -webkit-transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;
+  transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;
+}
+
+.slide-in-right.ng-enter-active, .slide-in-right > .ng-enter-active {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.slide-in-right.ng-leave, .slide-in-right > .ng-leave {
+  -webkit-transition: all ease-in-out 250ms;
+  transition: all ease-in-out 250ms;
+}
+
+// ----- End Ionic Modal slide-in-right animation

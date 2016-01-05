@@ -164,6 +164,16 @@ function writing() {
     ['README.md', {packageName: this.props.packageName}]
   ];
 
+  // License Template
+  if (this.props.packageLicense === 'MIT') {
+    common.push(['LICENSE', {
+      year: new Date().getFullYear(),
+      packageAuthor: this.props.packageAuthor,
+      packageAuthorEmail: this.props.packageAuthorEmail,
+      packageAuthorWeb: this.props.packageAuthorWeb
+    }]);
+  }
+
   mkdirp.sync('common/components');
   mkdirp.sync('common/services');
   copyFiles.bind(this)(common);

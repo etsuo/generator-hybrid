@@ -1,2 +1,7 @@
 node_modules
 coverage
+
+**/.idea/workspace.xml
+**/.idea/tasks.xml
+
+

@@ -34,59 +34,19 @@ This project uses [Gitflow](https://www.atlassian.com/git/tutorials/comparing-wo
 Before making your changes, however, you should open an [issue](https://github.com/etsuo/generator-hybrid/issues) to communicate what you're doing to sync up with other work that's being done. 
 
 ## Credits
-<ul style="list-style-type:none;">
-  <li style="display:inline; margin: 80px 20px 0px 20px">
-      <a href="http://ionicframework.com/">
-        <img src="http://news.ebscer.com/wp-content/uploads/2014/05/ionic_logo.png" height="175">
-      </a>
-  </li>
-  <li style="display:inline; margin: 80px 20px 0px 20px">
-    <a href="https://angularjs.org/">
-      <img src="http://www.w3schools.com/angular/pic_angular.jpg" height="175">
-    </a>
-  </li>
-  <li style="display:inline; margin: 80px 20px 0px 20px">
-    <a href="http://gulpjs.com/">
-      <img src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png" height="200">
-    </a>
-  </li>
-  <li style="display:inline; margin: 80px 20px 0px 20px">
-    <a href="http://bower.io/">
-      <img src="http://bower.io/img/bower-logo.png" height="125">
-    </a>
-  </li>
-  <li style="display:inline; margin: 80px 20px 0px 20px">
-    <a href="https://www.npmjs.com/">
-      <img src="https://www.npmjs.com/static/images/npm-logo.svg" width="200">
-    </a>
-  </li>
-  <li style="display:inline; margin: 80px 20px 0px 20px">
-    <a href="http://sass-lang.com/">
-      <img src="http://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg" width="200">
-    </a>
-  </li>
-  <li style="display:inline; margin: 80px 20px 0px 20px">
-    <a href="http://eslint.org/">
-      <img src="https://pbs.twimg.com/profile_images/422081374422446080/RNoIP-zD.png" height="175">
-    </a>
-  </li>
-  <li style="display:inline; margin: 80px 20px 0px 20px">
-    <a href="https://github.com/jasmine/jasmine">
-      <img src="http://jasmine.github.io/images/jasmine_vertical.svg" height="175">
-    </a>
-  </li>  
-  <li style="display:inline; margin: 80px 20px 0px 20px;">
-    <a href="http://karma-runner.github.io/">
-        <img src="http://karma-runner.github.io/assets/img/banner.png" width="200">
-    </a>
-  </li>  
-  <li style="display:inline; margin: 80px 20px 0px 20px">
-    <a href="http://yeoman.io/">
-        <img src="http://yeoman.io/static/tool-yo.3dcc437449.png" width="200">
-    </a>
-  </li>
-</ul>
+Here are some of the main projects that this generator uses:
 
+<a href="http://ionicframework.com/"><img src="http://news.ebscer.com/wp-content/uploads/2014/05/ionic_logo.png" height="175"></a>
+<a href="https://angularjs.org/"><img src="http://www.w3schools.com/angular/pic_angular.jpg" height="175"></a>
+<a href="http://gulpjs.com/"><img src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png" height="200"></a>
+<a href="http://bower.io/"><img src="http://bower.io/img/bower-logo.png" height="125"></a>
+<a href="https://www.npmjs.com/"><img src="https://www.npmjs.com/static/images/npm-logo.svg" width="200"></a>
+<a href="http://sass-lang.com/"><img src="http://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg" width="200"></a>
+<a href="http://eslint.org/"><img src="https://pbs.twimg.com/profile_images/422081374422446080/RNoIP-zD.png" height="175"></a>
+<a href="https://github.com/jasmine/jasmine"><img src="http://jasmine.github.io/images/jasmine_vertical.svg" height="175"></a>
+<a href="http://karma-runner.github.io/"><img src="http://karma-runner.github.io/assets/img/banner.png" width="200"></a>
+<a href="http://yeoman.io/"><img src="http://yeoman.io/static/tool-yo.3dcc437449.png" width="200"></a>
+  
 ## License
 
 MIT © [J.P. Poveda](https://github.com/etsuo/generator-hybrid)

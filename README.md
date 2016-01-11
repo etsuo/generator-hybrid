@@ -1,5 +1,13 @@
-# generator-hybrid [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
-> Creates a project for developing a web portal and hybrid iOS and Android apps using AngularJS and Ionic Framework
+# generator-hybrid [![NPM version][npm-image]][npm-url]  [![Dependency Status][daviddm-image]][daviddm-url]
+
+A [Yeoman](http://yeoman.io) generator that sets up a hybrid multi platform project for concurrently developing native mobile apps (iOS and Andoid), a web-portal, and a desktop app. It trys to follow the [Angular Style Guide](johnpapa/angular-styleguide) whenever possible.
+
+The technologies used include:
+
+* Mobile Apps: Ionic Framework
+* Web Portal: AngularJS
+* Desktop: Electron (*todo*)
+
 
 ## Installation
 
@@ -16,9 +24,68 @@ Then generate your new project:
 yo hybrid
 ```
 
-## Getting To Know Yeoman
+## Todo
 
-Yeoman has a heart of gold. He&#39;s a person with feelings and opinions, but he&#39;s very easy to work with. If you think he&#39;s too opinionated, he can be easily convinced. Feel free to [learn more about him](http://yeoman.io/).
+See the [issue tracker](https://github.com/etsuo/generator-hybrid/issues)
+
+## Contributing
+This project uses [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) for its git workflow. You should fork the project, make your changes on a feature branch, then submit your pull request from your feature branch against the upstream develop branch.
+
+Before making your changes, however, you should open an [issue](https://github.com/etsuo/generator-hybrid/issues) to communicate what you're doing to sync up with other work that's being done. 
+
+## Credits
+<ul style="list-style-type:none;">
+  <li style="display:inline; margin: 80px 20px 0px 20px">
+      <a href="http://ionicframework.com/">
+        <img src="http://news.ebscer.com/wp-content/uploads/2014/05/ionic_logo.png" height="175">
+      </a>
+  </li>
+  <li style="display:inline; margin: 80px 20px 0px 20px">
+    <a href="https://angularjs.org/">
+      <img src="http://www.w3schools.com/angular/pic_angular.jpg" height="175">
+    </a>
+  </li>
+  <li style="display:inline; margin: 80px 20px 0px 20px">
+    <a href="http://gulpjs.com/">
+      <img src="https://raw.githubusercontent.com/gulpjs/artwork/master/gulp-2x.png" height="200">
+    </a>
+  </li>
+  <li style="display:inline; margin: 80px 20px 0px 20px">
+    <a href="http://bower.io/">
+      <img src="http://bower.io/img/bower-logo.png" height="125">
+    </a>
+  </li>
+  <li style="display:inline; margin: 80px 20px 0px 20px">
+    <a href="https://www.npmjs.com/">
+      <img src="https://www.npmjs.com/static/images/npm-logo.svg" width="200">
+    </a>
+  </li>
+  <li style="display:inline; margin: 80px 20px 0px 20px">
+    <a href="http://sass-lang.com/">
+      <img src="http://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg" width="200">
+    </a>
+  </li>
+  <li style="display:inline; margin: 80px 20px 0px 20px">
+    <a href="http://eslint.org/">
+      <img src="https://pbs.twimg.com/profile_images/422081374422446080/RNoIP-zD.png" height="175">
+    </a>
+  </li>
+  <li style="display:inline; margin: 80px 20px 0px 20px">
+    <a href="https://github.com/jasmine/jasmine">
+      <img src="http://jasmine.github.io/images/jasmine_vertical.svg" height="175">
+    </a>
+  </li>  
+  <li style="display:inline; margin: 80px 20px 0px 20px;">
+    <a href="http://karma-runner.github.io/">
+        <img src="http://karma-runner.github.io/assets/img/banner.png" width="200">
+    </a>
+  </li>  
+  <li style="display:inline; margin: 80px 20px 0px 20px">
+    <a href="http://yeoman.io/">
+        <img src="http://yeoman.io/static/tool-yo.3dcc437449.png" width="200">
+    </a>
+  </li>
+</ul>
 
 ## License
 
@@ -31,3 +98,4 @@ MIT © [J.P. Poveda](https://github.com/etsuo/generator-hybrid)
 [travis-url]: https://travis-ci.org/etsuo/generator-hybrid
 [daviddm-image]: https://david-dm.org/etsuo/generator-hybrid.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/etsuo/generator-hybrid
+

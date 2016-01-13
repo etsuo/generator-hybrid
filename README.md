@@ -35,7 +35,7 @@ This project uses [Gitflow](https://www.atlassian.com/git/tutorials/comparing-wo
 
 Before making your changes, however, you should open an [issue](https://github.com/etsuo/generator-hybrid/issues) to communicate what you're doing to sync up with other work that's being done.
  
-Also, you might want to make sure that everything works when you do an `npm install -g generator-hybrid` by doing an install of your forked changes. For example: `npm install -g git+ssh://git@github.com:etsuo/generator-hybrid.git`
+Also, you might want to make sure that everything works when you do an `npm install -g generator-hybrid` by doing an install of your forked changes. For example: `npm install -g git+ssh://git@github.com:etsuo/generator-hybrid.git#develop`
 
 If you're not familiar with installing npm packages directly from github.com, see the [npm install documentation](https://docs.npmjs.com/cli/install).
 

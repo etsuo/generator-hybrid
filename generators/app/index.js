@@ -159,7 +159,7 @@ function writing() {
         'scripts',
         '.editorconfig',
         '.gitattributes',
-        '.gitignore',
+        ['.gitignore_template', '.gitignore'],
         ['README.md', {packageName: this.props.packageName}]
     ];
 
@@ -187,7 +187,7 @@ function writing() {
         'mobile/.bowerrc',
         'mobile/.eslintignore',
         'mobile/.eslintrc',
-        'mobile/.gitignore',
+        ['.gitignore_template', '.gitignore'],
         ['mobile/bower.json', {packageName: this.props.packageNameSafe}],
         ['mobile/config.xml', {
             packageName: this.props.packageNameSafe,

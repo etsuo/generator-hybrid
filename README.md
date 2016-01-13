@@ -21,6 +21,8 @@ npm install -g generator-hybrid
 Then generate your new project:
 
 ```bash
+mkdir new_project
+cd new_project
 yo hybrid
 ```
 
@@ -31,7 +33,11 @@ See the [issue tracker](https://github.com/etsuo/generator-hybrid/issues)
 ## Contributing
 This project uses [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) for its git workflow. You should fork the project, make your changes on a feature branch, then submit your pull request from your feature branch against the upstream develop branch.
 
-Before making your changes, however, you should open an [issue](https://github.com/etsuo/generator-hybrid/issues) to communicate what you're doing to sync up with other work that's being done. 
+Before making your changes, however, you should open an [issue](https://github.com/etsuo/generator-hybrid/issues) to communicate what you're doing to sync up with other work that's being done.
+ 
+Also, you might want to make sure that everything works when you do an `npm install -g generator-hybrid` by doing an install of your forked changes. For example: `npm install -g git+ssh://git@github.com:etsuo/generator-hybrid.git`
+
+If you're not familiar with installing npm packages directly from github.com, see the [npm install documentation](https://docs.npmjs.com/cli/install).
 
 ## Credits
 Here are some of the main projects that this generator uses:

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# make sure you have path available for using Source Tree with OSX
+source ~/.bash_profile &> /dev/null
+
+fail=0
+(cd mobile && npm run gulp precommit)
+if [[ $? != 0 ]] ; then
+  echo ""
+  echo "--------------------------------------------------------"
+  echo "ESLint check failed on the mobile project, commit denied"
+  echo "--------------------------------------------------------"
+  fail=1
+fi
+
+#(cd web && npm run gulp precommit)
+#if [[ $? != 0 ]] ; then
+#  echo ""
+#  echo "--------------------------------------------------------"
+#  echo "ESLint check failed on the web project, commit denied"
+#  echo "--------------------------------------------------------"
+#  fail=2
+#fi
+
+exit $fail

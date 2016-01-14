@@ -71,7 +71,9 @@ function prompting() {
             type: 'input',
             name: 'ionicProjectName',
             message: 'Project name for ionic.io:',
-            default: ''
+            default: function (vals) {
+                return vals.packageName;
+            }
         }
         // installations
         , {

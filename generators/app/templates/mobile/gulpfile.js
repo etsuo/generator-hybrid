@@ -121,12 +121,8 @@ gulp.task('default', 'Builds the project, adds watchers, then starts the server 
  ***********************************************************/
 
 function assets() {
-    var assets = useref.assets();
-
     return gulp.src('app/index.html')
         .pipe(plumber())
-        .pipe(assets)
-        .pipe(assets.restore())
         .pipe(useref())
         .pipe(gulp.dest('www'));
 }
@@ -344,7 +340,7 @@ function runTests(done) {
         singleRun: true
     }, next).start();
 
-    // TODO - fix QUIKMOB-63
+    // TODO - fix
     function next() {
         //gulp.src('coverage/coverage-karma.json')
         //    .pipe(debugOutput('runTests'))

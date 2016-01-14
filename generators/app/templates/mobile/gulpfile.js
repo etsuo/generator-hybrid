@@ -332,6 +332,7 @@ function rebuildAndTest(done) {
     }
 }
 
+var runTestsDone = false;
 function runTests(done) {
     var remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul');
 
@@ -352,6 +353,7 @@ function runTests(done) {
         //    }), function () {
         //        done();
         //    });
+        runTestsDone = true;
         done();
     }
 }
@@ -424,5 +426,15 @@ function debugOutput(location) {
         return gulpif(false, connect.reload()); // noop: will never be true
     }
 }
+
+//-- hack to get Karma to exit when it's done rather than hanging for a while
+//-- see: https://github.com/gulpjs/gulp/issues/167#issuecomment-52031771
+gulp.on('stop', function () {
+    if (runTestsDone) {
+        process.nextTick(function () {
+            process.exit(0);
+        });
+    }
+});
 
 /*eslint-enable*/

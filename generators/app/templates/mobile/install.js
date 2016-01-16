@@ -49,7 +49,7 @@ function InstallNpmGlobals() {
     var sudo = (isWin) ? '' : '';
 
     console.log("Checking to see if you need to install ionic, cordova, ios-sim and gulp globally (as required by Ionic Framework).");
-    
+
     var results = shell.exec('npm ls -g -json --depth=0', {silent: true, async: false});
 
     if (results.code > 0) {

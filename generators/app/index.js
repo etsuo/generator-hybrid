@@ -1,6 +1,7 @@
 'use strict';
 
 var chalk = require('chalk'),
+    fs = require('fs'),
     mkdirp = require('mkdirp'),
     semver = require('semver'),
     yeoman = require('yeoman-generator'),
@@ -13,16 +14,16 @@ var generator = {
     install: install
 };
 
-module.exports = yeoman.generators.Base.extend(generator);
+module.exports = yeoman.Base.extend(generator);
 
 ///////////
 function prompting() {
-    var done = this.async();
-
-    // Have Yeoman greet the user.
     this.log(yosay(
         'Setting up a hybrid mobile and web portal project.'
     ));
+
+    var done = this.async(),
+        hybridConfig = getHybridConfig();
 
     var prompts = [
         // package.json
@@ -39,32 +40,33 @@ function prompting() {
             type: 'input',
             name: 'packageVersion',
             message: 'Version:',
+            default: hybridConfig.packageVersion || '',
             validate: validateVersion
         }, {
             type: 'input',
             name: 'packageAuthor',
             message: 'Author:',
-            default: 'Olive Technology, Inc.'
+            default: hybridConfig.packageAuthor || ''
         }, {
             type: 'input',
             name: 'packageAuthorEmail',
             message: 'Author email:',
-            default: 'support@olivetech.com'
+            default: hybridConfig.packageAuthorEmail || ''
         }, {
             type: 'input',
             name: 'packageAuthorWeb',
             message: 'Author website',
-            default: 'www.OliveTech.com'
+            default: hybridConfig.packageAuthorWeb || ''
         }, {
             type: 'list',
             name: 'packageLicense',
             message: 'License (for private use UNLICENSED):',
-            choices: ['UNLICENSED', 'MIT']
+            choices: hybridConfig.packageLicense || ['UNLICENSED', 'MIT']
         }, {
             type: 'confirm',
             name: 'packagePrivate',
             message: 'Will this be a private project? (only mark no if you plan to publish the NPM module):',
-            default: true
+            default: (hybridConfig.packagePrivate !== undefined) ? hybridConfig.packagePrivate : true
         }
         // ionic.project
         , {
@@ -80,12 +82,12 @@ function prompting() {
             type: 'confirm',
             name: 'installDeps',
             message: 'Install dependencies (bower, npm, etc)?:',
-            default: true
+            default: (hybridConfig.installDeps !== undefined) ? hybridConfig.installDeps : true
         }, {
             type: 'confirm',
             name: 'initGit',
             message: 'Initialize a git repo?:',
-            default: true
+            default: (hybridConfig.initGit !== undefined) ? hybridConfig.initGit : true
         }
     ];
 
@@ -143,6 +145,25 @@ function prompting() {
         }
 
         return 'Your version number must be parsable by semver. For example: 0.0.1';
+    }
+
+}
+
+function getHybridConfig() {
+    var hybridConfigPath = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'] + '/.hybridconfig.json',
+        hybridConfigContnet = '';
+
+    try {
+        hybridConfigContnet = fs.readFileSync(hybridConfigPath, 'utf8');
+        var hybridConfig;
+        try {
+            hybridConfig = JSON.parse(hybridConfigContnet);
+            return hybridConfig
+        } catch (e) {
+            console.log('Error with .hybridconfig.json - it is being ignored.\n Error:\n\t' + e);
+            return {}
+        }
+    } catch (e) {
     }
 
 }

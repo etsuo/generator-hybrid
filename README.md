@@ -30,6 +30,27 @@ yo hybrid
 
 See the [issue tracker](https://github.com/etsuo/generator-hybrid/issues)
 
+## Config
+You can set your default answers by creating a file in your home directory called `.hybridconfig.json`. For example:
+
+```json
+{
+   "packageVersion": "0.0.1",
+   "packageAuthor": "Olive Technology",
+   "packageAuthorEmail": "support@olivetech.com",
+   "packageAuthorWeb": "www.OliveTech.com",
+   "packageLicense": ["UNLICENSED", "MIT", "Apache-2.0"],
+   "packagePrivate": true,
+   "installDeps": false,
+   "initGit": false
+}
+```
+
+Keep in mind that the license types should be valid [SPDX values](https://spdx.org/licenses/). If you do not wish to extend licensing rights to others, you should include "UNLICENSED" as an option. For version numbers, you must provide a valid [node semver](https://github.com/npm/node-semver).
+
+If you do not supply a `.hybridconfig.json` file in your home directory, then the generator will fall back to reasonable defaults.
+
+
 ## Contributing
 This project uses [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) for its git workflow. You should fork the project, make your changes on a feature branch, then submit your pull request from your feature branch against the upstream develop branch.
 

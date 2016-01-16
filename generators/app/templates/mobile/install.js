@@ -1,5 +1,6 @@
-﻿var shell = require('shelljs'),
-    err = null,
+﻿var shell = require('shelljs');
+
+var err = null,
     isDarwin = /^darwin/.test(process.platform),
     isWin = /^win/.test(process.platform),
     isLinux = /^linux/.test(process.platform);
@@ -45,44 +46,44 @@ function InstallGitHooks() {
 }
 // Install npm global dependencies *********************************************
 function InstallNpmGlobals() {
-    var sudo = (isWin) ? '' : 'sudo ';
+    var sudo = (isWin) ? '' : '';
+
     console.log("Checking to see if you need to install ionic, cordova, ios-sim and gulp globally (as required by Ionic Framework).");
 
-    // check for cordova
-    if (!isInstalled('cordova')) {
-        Install('cordova');
-    }
-    // check for ionic
-    if (!isInstalled('ionic')) {
-        Install('ionic');
-    }
-    // check for gulp
-    if (!isInstalled('gulp')) {
-        Install('gulp');
-    }
-    // check of ios-sim if on darwin
-    if (isDarwin && !isInstalled('ios-sim')) {
-        Install('ios-sim');
-    }
-    // check of ios-deploy if on darwin
-    if (isDarwin && !isInstalled('ios-deploy')) {
-        // This is a hack / workaround for: https://github.com/phonegap/ios-deploy/issues/109
-        console.log('...ios-deploy not found. Installing');
-        if (shell.exec('sudo npm install --global --unsafe-perm ios-deploy').code != 0) {
-            console.log('Error installing: ' + package);
-            shell.exit(1);
-        }
+    var results = shell.exec('npm ls -g -json --depth=0', {silent: true, async: false});
+
+    if (results.code > 0) {
+        console.log('ERROR checking npm globally installed packages.\nRequired npm global packages were not installed.\nExit code was: ' + results.code);
+        return;
     }
 
-    function isInstalled(package) {
-        return (shell.exec('npm list -g --depth=0 | grep -q ' + package, {silent: true}).code == 0);
+    var json = JSON.parse(results.output);
+
+    install('cordova');
+    install('ionic');
+    install('gulp');
+    install('ios-sim', isDarwin);
+    // This is a hack / workaround for: https://github.com/phonegap/ios-deploy/issues/109
+    install('ios-deploy', isDarwin, 'npm install --global --unsafe-perm ios-deploy');
+
+    //////////
+    function isInstalled(npmPackage) {
+        return (json.dependencies[npmPackage] !== undefined)
     }
 
-    function Install(package) {
-        console.log('...' + package + ' not found. Installing');
-        if (shell.exec(sudo + 'npm install -g ' + package).code != 0) {
-            console.log('Error installing: ' + package);
-            shell.exit(1);
+    function install(npmPackage, osMatch, override) {
+        if (osMatch || osMatch === undefined) {
+            if (!isInstalled(npmPackage)) {
+                console.log('...' + npmPackage + ' not found. Installing');
+
+                var cmd = (override === undefined) ? sudo + 'npm install -g ' + npmPackage : override;
+                if (shell.exec(cmd).code != 0) {
+                    console.log('Error installing: ' + npmPackage);
+                    shell.exit(1);
+                }
+            } else {
+                console.log('...' + npmPackage + ' found:\n' + JSON.stringify(json.dependencies[npmPackage]));
+            }
         }
     }
 }

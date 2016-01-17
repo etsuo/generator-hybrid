@@ -41,6 +41,9 @@ You can set your default answers by creating a file in your home directory calle
    "packageAuthorWeb": "www.OliveTech.com",
    "packageLicense": ["UNLICENSED", "MIT", "Apache-2.0"],
    "packagePrivate": true,
+   "installMobile": true,
+   "installWeb": true,
+   "webCssLibrary": "AngularMaterial",
    "installDeps": false,
    "initGit": false
 }

@@ -17,6 +17,7 @@ var argv = require('yargs').argv,
     gulpif = require('gulp-if'),
     insert = require('gulp-insert'),
     karma = require('karma').Server,
+    less = require('gulp-less'),
     minifyCss = require('gulp-minify-css'),
     minifyHtml = require('gulp-minify-html'),
     ngAnnotate = require('gulp-ng-annotate'),
@@ -46,15 +47,15 @@ var paths = {
     js: [
         // module.js needs to load first to insure that the modules
         // exist before the other components are added to the modules
-        'mobile/app/**/module.js',
+        'web/app/**/module.js',
         'common/**/module.js',
         'common/**/*.js',
-        'mobile/app/**/*.js',
-        '!mobile/app/lib/managed/**',
-        '!mobile/app/**/*.test.js'
+        'web/app/**/*.js',
+        '!web/app/lib/managed/**',
+        '!web/app/**/*.test.js'
     ],
     tests: [
-        'mobile/app/**/*.test.js'
+        'web/app/**/*.test.js'
     ],
     css: [
         'app/css/**/**',
@@ -432,5 +433,4 @@ gulp.on('stop', function () {
         });
     }
 });
-
 /*eslint-enable*/

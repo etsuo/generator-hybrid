@@ -1,0 +1,10 @@
+{
+  "directory": "app/lib/managed",
+  "storage": {
+    "packages": ".bower/packages",
+    "registry": ".bower/registry",
+    "links": ".bower/links",
+    "completion": ".bower/completions"
+  },
+  "tmp": ".bower/tmp"
+}

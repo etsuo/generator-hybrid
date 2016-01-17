@@ -1,0 +1,49 @@
+{
+  "plugins": [
+    "angular"
+  ],
+  "env": {
+    "es6": true,
+    "browser": true
+  },
+  "extends": "eslint:recommended",
+  "globals": {
+    "angular": true,
+    "cordova": true,
+    "Firebase": true
+  },
+  "rules": {
+    "angular/controller-as-vm": [
+      0
+    ],
+    "angular/controller-name": [
+      2,
+      "/[A-Z].*Controller$/"
+    ],
+    "indent": [
+      2,
+      4
+    ],
+    "quotes": [
+      2,
+      "single"
+    ],
+    "linebreak-style": [
+      2,
+      "unix"
+    ],
+    "no-multi-str": 2,
+    "semi": [
+      2,
+      "always"
+    ],
+    "strict": [
+      2,
+      "function"
+    ],
+    "wrap-iife": [
+      2,
+      "inside"
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 {
     "name": "generator-hybrid",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Creates a project for developing a web portal and hybrid iOS and Android apps using AngularJS and Ionic Framework",
     "homepage": "https://github.com/etsuo/generator-hybrid",
     "author": {

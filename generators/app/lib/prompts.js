@@ -18,6 +18,8 @@ function prompts() {
     var prompts = [];
 
     // General Questions -----------------------------------------------------------------------------------------------
+    this.props = {};
+
     prompts = prompts.concat([
         {
             message: 'What is the name of this project?',
@@ -26,42 +28,65 @@ function prompts() {
             filter: function (input) {
                 return input.split(' ').join('-').toLowerCase();
             },
-            validate: validNameNPM
+            validate: validNameNPM,
+            when: (this.headless)
+                ? (this.props.packageName = 'test', false)
+                : true
         }, {
             message: 'Describe your project for package.json:',
             type: 'input',
-            name: 'packageDescription'
+            name: 'packageDescription',
+            when: (this.headless)
+                ? (this.props.packageDescription = 'test', false)
+                : true
         }, {
             message: 'Version:',
             type: 'input',
             name: 'packageVersion',
             default: hybridConfig.packageVersion || '',
-            validate: validateVersion
+            validate: validateVersion,
+            when: (this.headless)
+                ? (this.props.packageVersion = hybridConfig.packageVersion || '0.0.0', false)
+                : true
         }, {
             message: 'Author:',
             type: 'input',
             name: 'packageAuthor',
-            default: hybridConfig.packageAuthor || ''
+            default: hybridConfig.packageAuthor || '',
+            when: (this.headless)
+                ? (this.props.packageAuthor = hybridConfig.packageAuthor || '', false)
+                : true
         }, {
             message: 'Author email:',
             type: 'input',
             name: 'packageAuthorEmail',
-            default: hybridConfig.packageAuthorEmail || ''
+            default: hybridConfig.packageAuthorEmail || '',
+            when: (this.headless)
+                ? (this.props.packageAuthorEmail = hybridConfig.packageAuthorEmail || '', false)
+                : true
         }, {
             message: 'Author website',
             type: 'input',
             name: 'packageAuthorWeb',
-            default: hybridConfig.packageAuthorWeb || ''
+            default: hybridConfig.packageAuthorWeb || '',
+            when: (this.headless)
+                ? (this.props.packageAuthorWeb = hybridConfig.packageAuthorWeb || '', false)
+                : true
         }, {
             message: 'License (for private use UNLICENSED):',
             type: 'list',
             name: 'packageLicense',
-            choices: hybridConfig.packageLicense || ['UNLICENSED', 'MIT']
+            choices: hybridConfig.packageLicense || ['UNLICENSED', 'MIT'],
+            when: (this.headless)
+                ? (this.props.packageLicense = hybridConfig.packageLicense || 'UNLICENSED', false) : true
         }, {
             message: 'Will this be a private project? (only mark no if you plan to publish the NPM module):',
             type: 'confirm',
             name: 'packagePrivate',
-            default: (hybridConfig.packagePrivate !== undefined) ? hybridConfig.packagePrivate : true
+            default: (hybridConfig.packagePrivate !== undefined) ? hybridConfig.packagePrivate : true,
+            when: (this.headless)
+                ? (this.props.packagePrivate = (hybridConfig.packagePrivate !== undefined) ? hybridConfig.packagePrivate : true, false)
+                : true
         }]);
 
     // Installation Scope  ---------------------------------------------------------------------------------------------
@@ -70,12 +95,18 @@ function prompts() {
             message: 'Install Mobile Project?:',
             type: 'confirm',
             name: 'installMobile',
-            default: (hybridConfig.installMobile !== undefined) ? hybridConfig.installMobile : true
+            default: (hybridConfig.installMobile !== undefined) ? hybridConfig.installMobile : true,
+            when: (this.headless)
+                ? (this.props.installMobile = (hybridConfig.installMobile !== undefined) ? hybridConfig.installMobile : true, false)
+                : true
         }, {
             message: 'Install Web Project?:',
             type: 'confirm',
             name: 'installWeb',
-            default: (hybridConfig.installWeb !== undefined) ? hybridConfig.installWeb : true
+            default: (hybridConfig.installWeb !== undefined) ? hybridConfig.installWeb : true,
+            when: (this.headless)
+                ? (this.props.installWeb = (hybridConfig.installWeb !== undefined) ? hybridConfig.installWeb : true, false)
+                : true
         }
     ]);
 
@@ -91,7 +122,9 @@ function prompts() {
             default: function (vals) {
                 return vals.packageName;
             },
-            when: doMobile
+            when: (this.headless)
+                ? (this.props.ionicProjectName = hybridConfig.ionicProjectName || this.props.packageName, false)
+                : doMobile
         }]);
 
     // Web -------------------------------------------------------------------------------------------------------------
@@ -100,9 +133,11 @@ function prompts() {
             message: 'CSS Library:',
             type: 'list',
             name: 'webCssLibrary',
-            choices: ['AngularMaterial', 'Bootstrap', 'None'],
-            default: hybridConfig.webCssLibrary || "AngularMaterial",
-            when: doWeb
+            choices: ['AngularMaterial', 'UIBootstrap', 'None'],
+            default: hybridConfig.webCssLibrary || 'AngularMaterial',
+            when: (this.headless)
+                ? (this.props.webCssLibrary = hybridConfig.webCssLibrary || 'AngularMaterial', false)
+                : doWeb
         }
     ]);
 
@@ -112,19 +147,30 @@ function prompts() {
             message: 'Install dependencies (bower, npm, etc)?:',
             type: 'confirm',
             name: 'installDeps',
-            default: (hybridConfig.installDeps !== undefined) ? hybridConfig.installDeps : true
+            default: (hybridConfig.installDeps !== undefined) ? hybridConfig.installDeps : true,
+            when: (this.headless)
+                ? (this.props.installDeps = (hybridConfig.installDeps !== undefined) ? hybridConfig.installDeps : true, false)
+                : true
         }, {
             message: 'Initialize a git repo?:',
             type: 'confirm',
             name: 'initGit',
-            default: (hybridConfig.initGit !== undefined) ? hybridConfig.initGit : true
+            default: (hybridConfig.initGit !== undefined) ? hybridConfig.initGit : true,
+            when: (this.headless)
+                ? (this.props.initGit = (hybridConfig.initGit !== undefined) ? hybridConfig.initGit : true, false)
+                : true
         }]);
 
+
     this.prompt(prompts, function (props) {
-        this.props = props;
-        // To access props later use this.props.someOption;
+        if (!this.headless) {
+            // To access props later use this.props.someOption;
+            this.props = props;
+        }
+
         done();
     }.bind(this));
+
 
     function doMobile(vals) {
         return vals.installMobile;

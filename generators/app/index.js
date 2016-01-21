@@ -9,6 +9,7 @@ var prompts = require('./lib/prompts'),
     writeWeb = require('./lib/writeWeb');
 
 var generator = {
+    constructor: constructor,
     prompting: prompts,
     configuring: configuring,
     writing: writing,
@@ -18,6 +19,13 @@ var generator = {
 module.exports = yeoman.Base.extend(generator);
 
 ///////////
+function constructor() {
+    yeoman.Base.apply(this, arguments);
+    this.argument('headless', {type: String, required: false});
+
+    this.headless = (this.headless !== undefined);
+}
+
 function configuring() {
 
 }
@@ -43,8 +51,6 @@ function install() {
         when(this.props.installWeb).run(this.spawnCommand, ['npm', ['install'], {'cwd': 'web'}]);
 
     }
-
-    this.log('All done. Thanks for playing.');
 
 }
 

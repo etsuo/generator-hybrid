@@ -1,7 +1,12 @@
 'use strict';
 
-var copyFiles = require('./copyFiles'),
+var escodegen = require('escodegen'),
+    esprima = require('esprima'),
     mkdirp = require('mkdirp');
+
+var copyFiles = require('./copyFiles'),
+    copyJson = require('./copyJson'),
+    walkCode = require('./walkCode');
 
 module.exports = writeWeb;
 
@@ -15,7 +20,6 @@ function writeWeb() {
         'web/.eslintignore',
         'web/.eslintrc',
         ['web/.gitignore_template', 'web/.gitignore'],
-        ['web/bower.json', {packageName: this.props.packageName}],
         'web/gulpfile.js',
         'web/install.js',
         'web/karma.conf.js',
@@ -31,6 +35,27 @@ function writeWeb() {
 
     mkdirp.sync('web/www');
     copyFiles.bind(this)(web);
+
+    // some bower specifics
+    var bower = {
+        "name": this.props.packageName
+    };
+    switch (this.props.webCssLibrary.toLowerCase()) {
+        case 'angularmaterial':
+            bower.dependencies = {'angular-material': '^1.0.x'};
+            break;
+
+        case 'uibootstrap':
+            bower.dependencies = {'angular-bootstrap': '^1.0.3'};
+            break;
+
+        case 'none':
+            break;
+
+        default:
+            throw "Unexpected webCssLibrary";
+    }
+    copyJson.bind(this)('web/bower.json', bower);
 
     /*
      * Project
@@ -49,4 +74,13 @@ function writeWeb() {
 
     mkdirp.sync('web/app/css');
     copyFiles.bind(this)(webApp);
+
+    var codeWalker = new walkCode(this.fs.read(this.templatePath('web/app/module.js')));
+
+    var target = codeWalker.f('body');
+    console.log(JSON.stringify(target, null, 2));
+
+    //console.log(JSON.stringify(codeWalker.tree, null, 2));
+    //console.log('----------------------------');
+    //console.log(escodegen.generate(codeWalker.tree).replace("}());", "})();"));
 }

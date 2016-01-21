@@ -1,7 +1,12 @@
-angular.module('app', [
-    'ionic',
+(function () {
+    'use strict';
 
-    'app.common',
-    'app.components',
-    'app.home'
-]);
+    angular.module('app', [
+        'ionic',
+
+        'app.common',
+        'app.components',
+        'app.home'
+    ]);
+
+})();

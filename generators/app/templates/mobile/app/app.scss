@@ -12,26 +12,6 @@ $dark:                            #444 !default;
 
 /* App wide font change ***********************************************************************************************/
 
-@font-face {
-  font-family: 'SanFrancisco';
-  src: url('fonts/SF-UI-Display-Thin.otf') format('opentype');
-  font-weight: lighter;
-}
-
-@font-face {
-  font-family: 'SanFrancisco';
-  src: url('fonts/SF-UI-Display-Light.otf') format('opentype');
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: 'SanFrancisco';
-  src: url('fonts/SF-UI-Display-Regular.otf') format('opentype');
-  font-weight: bold;
-}
-
-$font-family-base: 'SanFrancisco', sans-serif !default;
-
 // The path for our ionicons font files, relative to the built CSS in app/css
 $ionicons-font-path: 'fonts' !default;
 

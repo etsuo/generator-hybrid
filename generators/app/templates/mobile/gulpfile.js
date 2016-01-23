@@ -43,6 +43,10 @@ var paths = {
     img: [
         'app/img/**/*'
     ],
+    ionicon: [
+        'app/lib/managed/Ionicons/css/ionicons.css',
+        'app/lib/managed/Ionicons/fonts/**'
+    ],
     js: [
         // module.js needs to load first to insure that the modules
         // exist before the other components are added to the modules
@@ -95,6 +99,7 @@ gulp.task('test', 'Run tests (same as gulp build)', build);
 
 // CSS Related
 gulp.task('css', 'Generates CSS from sass and less files', css);
+gulp.task('ioniconfont', false, ioniconfont);
 gulp.task('cpcss', false, cpcss);
 gulp.task('sass', 'Compile sass', sassTask);
 
@@ -142,6 +147,14 @@ function clean() {
     ]);
 }
 
+function ioniconfont() {
+    // copy ionicon font dependencies
+    return gulp.src(paths.ionicon)
+        .pipe(plumber())
+        .pipe(gulp.dest('www/css/fonts'));
+
+}
+
 function cpcss() {
     // copy css directory
     return gulp.src(paths.css)
@@ -151,6 +164,7 @@ function cpcss() {
 
 function css(done) {
     run(
+        'ioniconfont',
         'cpcss',
         'sass',
         next

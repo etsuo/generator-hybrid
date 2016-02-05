@@ -8,6 +8,7 @@ The technologies used include:
 * Web Portal: AngularJS
 * Desktop: Electron (*todo*)
 
+**Note**: This is a work in progress. It's getting worked on as fast as possible between day-to-day obligations. :)
 
 ## Installation
 
@@ -26,12 +27,28 @@ cd new_project
 yo hybrid
 ```
 
+If you told generator-hybrid to install dependencies (npm and bower), then your projects should be good to go. If you said no to this option, you're on your own to get the dependencies installed... but it's not that hard. `npm install` in either the `web` or `mobile` directory will run in the `install.js` script, which includes running bower install.
+
+### Mobile
+```bash
+$ cd mobile
+$ ionic serve -b
+```
+Then browse to http://localhost:8100
+
+### Web
+```bash
+$ cd web
+$ gulp serve
+```
+Then browse to http://localhost:8088 (unless you changed the default port during the install).
+
 ## Todo
 
 See the [issue tracker](https://github.com/etsuo/generator-hybrid/issues)
 
 ## Config
-You can set your default answers by creating a file in your home directory called `.hybridconfig.json`. For example:
+If you want to set your default answers, create a file in your home directory (`cd ~`) called `.hybridconfig.json`. For example:
 
 ```json
 {
@@ -41,24 +58,45 @@ You can set your default answers by creating a file in your home directory calle
    "packageAuthorWeb": "www.OliveTech.com",
    "packageLicense": ["UNLICENSED", "MIT", "Apache-2.0"],
    "packagePrivate": true,
-   "installDeps": false,
-   "initGit": false
+   "installMobile": true,
+   "installWeb": true,
+   "webCssLibrary": "AngularMaterial",
+   "installDeps": true,
+   "initGit": true
 }
 ```
+You can include as many or as few of these options as you want to override.
 
 Keep in mind that the license types should be valid [SPDX values](https://spdx.org/licenses/). If you do not wish to extend licensing rights to others, you should include "UNLICENSED" as an option. For version numbers, you must provide a valid [node semver](https://github.com/npm/node-semver).
 
 If you do not supply a `.hybridconfig.json` file in your home directory, then the generator will fall back to reasonable defaults.
 
+## Headless
+`yo hybrid --headless -n 'some-name' -d 'some project description'` will run generator-hybrid in headless mode.
+
+The `-n` option should be a package.json `name` compatible value.
 
 ## Contributing
-This project uses [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) for its git workflow. You should fork the project, make your changes on a feature branch, then submit your pull request from your feature branch against the upstream develop branch.
+
+### Reporting bugs
+Open an [issue](https://github.com/etsuo/generator-hybrid/issues). This helps more than you could imagine with just about any open-source project. We have no way of testing this on every possible combination of OS X, Windows, and Linux/BSD.
+
+### Make suggestions
+This project serves some pretty specific needs of a group of us, but we figured it might serve the needs or a large community so we beefed it up some and make it more usable outside of our really limited set of needs. If you have an idea as to how we could improve this project, suggest it to us. You might end up helping more people than you realize! :)
+
+### Coding
+Fork the project, then work off your develop branch or a feature branch. When you're ready, submit a pull request back against develop.
 
 Before making your changes, however, you should open an [issue](https://github.com/etsuo/generator-hybrid/issues) to communicate what you're doing to sync up with other work that's being done.
  
 Also, you might want to make sure that everything works when you do an `npm install -g generator-hybrid` by doing an install of your forked changes. For example: `npm install -g git+ssh://git@github.com:etsuo/generator-hybrid.git#develop`
 
 If you're not familiar with installing npm packages directly from github.com, see the [npm install documentation](https://docs.npmjs.com/cli/install).
+
+Another helpful tip is to use `npm link`. Once you have cloned your fork to your local system, from within the root of the `generator-hyrbid` directory, type [`npm link`](https://docs.npmjs.com/cli/link). Your hybrid generator is now your local copy for testing purposes. 
+
+## Supported Platforms
+This is tested on modern releases of Apple OS X, Microsoft Windows, and Ubuntu Linux. If you're running into problems on one of these platforms, please open an [issue](https://github.com/etsuo/generator-hybrid/issues). Make sure to include your OS and version. If you're using a different version of Linux/Unix/BSD, feel free to open an [issue](https://github.com/etsuo/generator-hybrid/issues) - we might be able to do something about it... we might not... never hurts to try.
 
 ## Credits
 Here are some of the main projects that this generator uses:

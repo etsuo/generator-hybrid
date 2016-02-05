@@ -17,6 +17,7 @@ var argv = require('yargs').argv,
     gulpif = require('gulp-if'),
     insert = require('gulp-insert'),
     karma = require('karma').Server,
+    less = require('gulp-less'),
     minifyCss = require('gulp-minify-css'),
     minifyHtml = require('gulp-minify-html'),
     ngAnnotate = require('gulp-ng-annotate'),
@@ -32,6 +33,7 @@ var argv = require('yargs').argv,
 /* Initialization
  ***********************************************************/
 var machine_gen_warning = "/*\n*\tWARNING: This is machine generated.\n*\tYou're wasting your time if you edit this file.\n*/\n\n";
+var port = (Number.isInteger(argv.port)) ? argv.port : "<%= webServerPort %>";
 
 var paths = {
     html: [
@@ -43,22 +45,18 @@ var paths = {
     img: [
         'app/img/**/*'
     ],
-    ionicon: [
-        'app/lib/managed/Ionicons/css/ionicons.css',
-        'app/lib/managed/Ionicons/fonts/**'
-    ],
     js: [
         // module.js needs to load first to insure that the modules
         // exist before the other components are added to the modules
-        'mobile/app/**/module.js',
+        'web/app/**/module.js',
         'common/**/module.js',
         'common/**/*.js',
-        'mobile/app/**/*.js',
-        '!mobile/app/lib/managed/**',
-        '!mobile/app/**/*.test.js'
+        'web/app/**/*.js',
+        '!web/app/lib/managed/**',
+        '!web/app/**/*.test.js'
     ],
     tests: [
-        'mobile/app/**/*.test.js'
+        'web/app/**/*.test.js'
     ],
     css: [
         'app/css/**/**',
@@ -87,9 +85,10 @@ console.log('Running in production mode: ' + argv.production + '\033[0m');
 
 // JS Build Related
 gulp.task('assets', false, assets);
-gulp.task('build', 'Removes previous builds, compiles js, compiles less', build);
+gulp.task('build', 'Removes previous builds, compiles js, compiles sass', build);
 gulp.task('js', 'Compiles js', js);
 gulp.task('jsTests', 'Compiles js tests', jsTests);
+gulp.task('serve', 'Removes previous build, compiles js, compiles sass, watches', ['build', 'watch'], serve);
 
 // JS Test Related
 gulp.task('eslint', 'Lints your code', lint);
@@ -99,7 +98,6 @@ gulp.task('test', 'Run tests (same as gulp build)', build);
 
 // CSS Related
 gulp.task('css', 'Generates CSS from sass and less files', css);
-gulp.task('ioniconfont', false, ioniconfont);
 gulp.task('cpcss', false, cpcss);
 gulp.task('sass', 'Compile sass', sassTask);
 
@@ -147,12 +145,18 @@ function clean() {
     ]);
 }
 
-function ioniconfont() {
-    // copy ionicon font dependencies
-    return gulp.src(paths.ionicon)
-        .pipe(plumber())
-        .pipe(gulp.dest('www/css/fonts'));
+function coverage(done) {
+    run('build', 'watchTask', serve);
 
+    function serve() {
+        connect.server({
+            port: 5050,
+            livereload: true,
+            root: ["coverage/html"],
+            fallback: "coverage/html/index.html"
+        });
+        done();
+    }
 }
 
 function cpcss() {
@@ -164,7 +168,6 @@ function cpcss() {
 
 function css(done) {
     run(
-        'ioniconfont',
         'cpcss',
         'sass',
         next
@@ -173,6 +176,16 @@ function css(done) {
     function next() {
         connect.reload();
         done();
+    }
+}
+
+function debugOutput(location) {
+    if (debug == 1) {
+        return filelog(location);
+    } else if (debug == 2) {
+        return gulpDebug({title: location, minimal: false})
+    } else {
+        return gulpif(false, connect.reload()); // noop: will never be true
     }
 }
 
@@ -281,6 +294,18 @@ function lint() {
         .pipe(gulpif(argv.lintfail, eslint.failAfterError()));
 }
 
+function nuke() {
+    del([
+        '.bower/',
+        'node_modules/',
+        'app/lib/managed/',
+        'platforms',
+        'plugins'
+    ]).then(function (paths) {
+        console.log('Deleted files and folders:\n', paths.join('\n'));
+    });
+}
+
 function outdated() {
     return gulp.src('')
         .pipe(shell([
@@ -368,6 +393,16 @@ function runTests(done) {
     }
 }
 
+function serve(done) {
+
+    return connect.server({
+        port: port,
+        livereload: true,
+        root: ["www"],
+        fallback: "www/index.html"
+    }, done);
+}
+
 function watchTask() {
     var options = {cwd: '../'};
 
@@ -400,42 +435,7 @@ function watchTask() {
     });
 }
 
-function nuke() {
-    del([
-        '.bower/',
-        'node_modules/',
-        'app/lib/managed/',
-        'platforms',
-        'plugins'
-    ]).then(function (paths) {
-        console.log('Deleted files and folders:\n', paths.join('\n'));
-    });
-}
 
-function coverage(done) {
-    run('build', 'watchTask', serve);
-
-    function serve() {
-        connect.server({
-            port: 5050,
-            livereload: true,
-            root: ["coverage/html"],
-            fallback: "coverage/html/index.html"
-        });
-        done();
-    }
-
-}
-
-function debugOutput(location) {
-    if (debug == 1) {
-        return filelog(location);
-    } else if (debug == 2) {
-        return gulpDebug({title: location, minimal: false})
-    } else {
-        return gulpif(false, connect.reload()); // noop: will never be true
-    }
-}
 
 //-- hack to get Karma to exit when it's done rather than hanging for a while
 //-- see: https://github.com/gulpjs/gulp/issues/167#issuecomment-52031771
@@ -446,5 +446,4 @@ gulp.on('stop', function () {
         });
     }
 });
-
 /*eslint-enable*/

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title><%= projectName %></title>
+
+    <!-- app.css is compiled by gulp -->
+    <link rel="stylesheet" href="css/app.min.css">
+    <%- cssAdditions %>
+    <!--build:js lib/angular.js -->
+    <script src="lib/managed/angular/angular.min.js"></script>
+    <%- cssFrameworkDependencies %>
+
+    <!--build:js lib/vendor.js -->
+    <script src="lib/managed/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <%- cssFramework %>
+
+    <script src="app.js"></script>
+
+</head>
+<body ng-controller="AppController as app">
+
+<%- htmlTemplate %>
+
+</body>
+</html>

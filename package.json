@@ -1,48 +1,48 @@
 {
-  "name": "generator-hybrid",
-  "version": "0.2.0",
-  "description": "Creates a project for developing a web portal and hybrid iOS and Android apps using AngularJS and Ionic Framework",
-  "homepage": "https://github.com/etsuo/generator-hybrid",
-  "author": {
-    "name": "J.P. Poveda",
-    "email": "jp@poveda.net",
-    "url": "https://github.com/etsuo/generator-hybrid"
-  },
-  "files": [
-    "generators"
-  ],
-  "main": "generators/index.js",
-  "keywords": [
-    "yeoman-generator"
-  ],
-  "dependencies": {
-    "yeoman-generator": "^0.22.1",
-    "chalk": "^1.0.0",
-    "yosay": "^1.0.2"
-  },
-  "devDependencies": {
-    "deepmerge": "^0.2.10",
-    "ejs": "^2.4.1",
-    "escodegen": "^1.8.0",
-    "eslint-plugin-angular": "^0.15.0",
-    "esprima": "^2.7.1",
-    "gulp": "^3.6.0",
-    "gulp-eslint": "^1.0.0",
-    "gulp-exclude-gitignore": "^1.0.0",
-    "gulp-istanbul": "^0.10.0",
-    "gulp-mocha": "^2.0.0",
-    "gulp-nsp": "^2.1.0",
-    "gulp-plumber": "^1.0.0",
-    "semver": "^5.1.0",
-    "should": "^8.1.1",
-    "yeoman-assert": "^2.0.0",
-    "yeoman-test": "^1.0.0"
-  },
-  "repository": "etsuo/generator-hybrid",
-  "scripts": {
-    "mocha": "mocha test/**/*.js",
-    "prepublish": "gulp prepublish",
-    "test": "gulp"
-  },
-  "license": "MIT"
+    "name": "generator-hybrid",
+    "version": "0.2.1",
+    "description": "Creates a project for developing a web portal and hybrid iOS and Android apps using AngularJS and Ionic Framework",
+    "homepage": "https://github.com/etsuo/generator-hybrid",
+    "author": {
+        "name": "J.P. Poveda",
+        "email": "jp@poveda.net",
+        "url": "https://github.com/etsuo/generator-hybrid"
+    },
+    "files": [
+        "generators"
+    ],
+    "main": "generators/index.js",
+    "keywords": [
+        "yeoman-generator"
+    ],
+    "dependencies": {
+        "chalk": "^1.0.0",
+        "deepmerge": "^0.2.10",
+        "ejs": "^2.4.1",
+        "escodegen": "^1.8.0",
+        "esprima": "^2.7.1",
+        "semver": "^5.1.0",
+        "yeoman-generator": "^0.22.1",
+        "yosay": "^1.0.2"
+    },
+    "devDependencies": {
+        "eslint-plugin-angular": "^0.15.0",
+        "gulp": "^3.6.0",
+        "gulp-eslint": "^1.0.0",
+        "gulp-exclude-gitignore": "^1.0.0",
+        "gulp-istanbul": "^0.10.0",
+        "gulp-mocha": "^2.0.0",
+        "gulp-nsp": "^2.1.0",
+        "gulp-plumber": "^1.0.0",
+        "should": "^8.1.1",
+        "yeoman-assert": "^2.0.0",
+        "yeoman-test": "^1.0.0"
+    },
+    "repository": "etsuo/generator-hybrid",
+    "scripts": {
+        "mocha": "mocha test/**/*.js",
+        "prepublish": "gulp prepublish",
+        "test": "gulp"
+    },
+    "license": "MIT"
 }

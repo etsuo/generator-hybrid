@@ -6,21 +6,22 @@
     <title><%= projectName %></title>
 
     <!-- app.css is compiled by gulp -->
-    <link href="css/app.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="css/app.min.css">
+    <%- cssAdditions %>
     <!--build:js lib/angular.js -->
     <script src="lib/managed/angular/angular.min.js"></script>
-    <!-- endbuild -->
+    <%- cssFrameworkDependencies %>
 
+    <!--build:js lib/vendor.js -->
+    <script src="lib/managed/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <%- cssFramework %>
 
     <script src="app.js"></script>
 
 </head>
 <body ng-controller="AppController as app">
 
-<div>
-
-</div>
+<%- htmlTemplate %>
 
 </body>
 </html>

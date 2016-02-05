@@ -43,14 +43,12 @@ function writeMobile() {
     mkdirp.sync('mobile/www'); // without this `$ cordova plugin add cordova-plugin-device fails`
     copyFiles.bind(this)(mobile);
 
-
     /*
      * Project
      ******************************************************************************************************************/
     var mobileCode = [
 
         'mobile/app/components',
-        'mobile/app/css/fonts',
 
         'mobile/app/home',
         ['mobile/app/home/home.html', {
@@ -73,5 +71,6 @@ function writeMobile() {
 
     ];
     copyFiles.bind(this)(mobileCode);
-    mkdirp.sync('mobile/img');
+    mkdirp.sync('mobile/app/css');
+    mkdirp.sync('mobile/app/img');
 }

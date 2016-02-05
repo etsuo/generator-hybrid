@@ -2,8 +2,7 @@
     'use strict';
 
     angular.module('app', [
-        'ionic',
-
+        'ui.router',
         'app.common',
         'app.components',
         'app.home'

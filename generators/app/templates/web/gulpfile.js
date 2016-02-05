@@ -33,6 +33,7 @@ var argv = require('yargs').argv,
 /* Initialization
  ***********************************************************/
 var machine_gen_warning = "/*\n*\tWARNING: This is machine generated.\n*\tYou're wasting your time if you edit this file.\n*/\n\n";
+var port = (Number.isInteger(argv.port)) ? argv.port : "<%= webServerPort %>";
 
 var paths = {
     html: [
@@ -84,9 +85,10 @@ console.log('Running in production mode: ' + argv.production + '\033[0m');
 
 // JS Build Related
 gulp.task('assets', false, assets);
-gulp.task('build', 'Removes previous builds, compiles js, compiles less', build);
+gulp.task('build', 'Removes previous builds, compiles js, compiles sass', build);
 gulp.task('js', 'Compiles js', js);
 gulp.task('jsTests', 'Compiles js tests', jsTests);
+gulp.task('serve', 'Removes previous build, compiles js, compiles sass, watches', ['build', 'watch'], serve);
 
 // JS Test Related
 gulp.task('eslint', 'Lints your code', lint);
@@ -143,6 +145,20 @@ function clean() {
     ]);
 }
 
+function coverage(done) {
+    run('build', 'watchTask', serve);
+
+    function serve() {
+        connect.server({
+            port: 5050,
+            livereload: true,
+            root: ["coverage/html"],
+            fallback: "coverage/html/index.html"
+        });
+        done();
+    }
+}
+
 function cpcss() {
     // copy css directory
     return gulp.src(paths.css)
@@ -160,6 +176,16 @@ function css(done) {
     function next() {
         connect.reload();
         done();
+    }
+}
+
+function debugOutput(location) {
+    if (debug == 1) {
+        return filelog(location);
+    } else if (debug == 2) {
+        return gulpDebug({title: location, minimal: false})
+    } else {
+        return gulpif(false, connect.reload()); // noop: will never be true
     }
 }
 
@@ -268,6 +294,18 @@ function lint() {
         .pipe(gulpif(argv.lintfail, eslint.failAfterError()));
 }
 
+function nuke() {
+    del([
+        '.bower/',
+        'node_modules/',
+        'app/lib/managed/',
+        'platforms',
+        'plugins'
+    ]).then(function (paths) {
+        console.log('Deleted files and folders:\n', paths.join('\n'));
+    });
+}
+
 function outdated() {
     return gulp.src('')
         .pipe(shell([
@@ -355,6 +393,16 @@ function runTests(done) {
     }
 }
 
+function serve(done) {
+
+    return connect.server({
+        port: port,
+        livereload: true,
+        root: ["www"],
+        fallback: "www/index.html"
+    }, done);
+}
+
 function watchTask() {
     var options = {cwd: '../'};
 
@@ -387,42 +435,7 @@ function watchTask() {
     });
 }
 
-function nuke() {
-    del([
-        '.bower/',
-        'node_modules/',
-        'app/lib/managed/',
-        'platforms',
-        'plugins'
-    ]).then(function (paths) {
-        console.log('Deleted files and folders:\n', paths.join('\n'));
-    });
-}
 
-function coverage(done) {
-    run('build', 'watchTask', serve);
-
-    function serve() {
-        connect.server({
-            port: 5050,
-            livereload: true,
-            root: ["coverage/html"],
-            fallback: "coverage/html/index.html"
-        });
-        done();
-    }
-
-}
-
-function debugOutput(location) {
-    if (debug == 1) {
-        return filelog(location);
-    } else if (debug == 2) {
-        return gulpDebug({title: location, minimal: false})
-    } else {
-        return gulpif(false, connect.reload()); // noop: will never be true
-    }
-}
 
 //-- hack to get Karma to exit when it's done rather than hanging for a while
 //-- see: https://github.com/gulpjs/gulp/issues/167#issuecomment-52031771

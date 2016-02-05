@@ -30,20 +30,20 @@ function prompts() {
             },
             validate: validNameNPM,
             when: (this.headless)
-                ? (this.props.packageName = 'test', false)
+                ? (this.props.packageName = this.name || 'test', false)
                 : true
         }, {
             message: 'Describe your project for package.json:',
             type: 'input',
             name: 'packageDescription',
             when: (this.headless)
-                ? (this.props.packageDescription = 'test', false)
+                ? (this.props.packageDescription = this.description || '', false)
                 : true
         }, {
             message: 'Version:',
             type: 'input',
             name: 'packageVersion',
-            default: hybridConfig.packageVersion || '',
+            default: hybridConfig.packageVersion || undefined,
             validate: validateVersion,
             when: (this.headless)
                 ? (this.props.packageVersion = hybridConfig.packageVersion || '0.0.0', false)
@@ -52,7 +52,7 @@ function prompts() {
             message: 'Author:',
             type: 'input',
             name: 'packageAuthor',
-            default: hybridConfig.packageAuthor || '',
+            default: hybridConfig.packageAuthor || undefined,
             when: (this.headless)
                 ? (this.props.packageAuthor = hybridConfig.packageAuthor || '', false)
                 : true
@@ -60,7 +60,7 @@ function prompts() {
             message: 'Author email:',
             type: 'input',
             name: 'packageAuthorEmail',
-            default: hybridConfig.packageAuthorEmail || '',
+            default: hybridConfig.packageAuthorEmail || undefined,
             when: (this.headless)
                 ? (this.props.packageAuthorEmail = hybridConfig.packageAuthorEmail || '', false)
                 : true
@@ -68,7 +68,7 @@ function prompts() {
             message: 'Author website',
             type: 'input',
             name: 'packageAuthorWeb',
-            default: hybridConfig.packageAuthorWeb || '',
+            default: hybridConfig.packageAuthorWeb || undefined,
             when: (this.headless)
                 ? (this.props.packageAuthorWeb = hybridConfig.packageAuthorWeb || '', false)
                 : true
@@ -138,6 +138,14 @@ function prompts() {
             when: (this.headless)
                 ? (this.props.webCssLibrary = hybridConfig.webCssLibrary || 'AngularMaterial', false)
                 : doWeb
+        }, {
+            message: 'Default test server port:',
+            type: 'number',
+            name: 'webServerPort',
+            default: hybridConfig.webServerPort || 8088,
+            when: (this.headless)
+                ? (this.props.webServerPort = hybridConfig.webServerPort || 8088, false)
+                : doWeb
         }
     ]);
 
@@ -196,7 +204,8 @@ function getHybridConfig() {
             return {}
         }
     } catch (e) {
-        console.log(e);
+        console.log("You do not have a .hybridconfig.json file in your home folder - it is being skipped\n");
+        return {}
     }
 }
 

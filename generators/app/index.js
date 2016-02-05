@@ -1,14 +1,14 @@
 'use strict';
 
-var chalk = require('chalk'),
+const chalk = require('chalk'),
     yeoman = require('yeoman-generator');
 
-var prompts = require('./lib/prompts'),
+const prompts = require('./lib/prompts'),
     writeCommon = require('./lib/writeCommon'),
     writeMobile = require('./lib/writeMobile'),
     writeWeb = require('./lib/writeWeb');
 
-var generator = {
+const generator = {
     constructor: constructor,
     prompting: prompts,
     configuring: configuring,
@@ -21,9 +21,41 @@ module.exports = yeoman.Base.extend(generator);
 ///////////
 function constructor() {
     yeoman.Base.apply(this, arguments);
-    this.argument('headless', {type: String, required: false});
 
-    this.headless = (this.headless !== undefined);
+    try {
+
+        this.option('headless', {
+            type: Boolean,
+            desc: 'Run generator-hybrid in headless mode. Requires the name argument.'
+        });
+        this.headless = (this.options.headless !== undefined);
+
+        this.option('name', {
+            type: String,
+            alias: 'n',
+            desc: 'The name of the project for package.json, etc.'
+        });
+        this.name = this.options.name;
+        if (!this.name && this.headless) {
+            throw 'The --name option is required when running in --headless mode';
+        }
+
+        this.option('description', {
+            type: String,
+            alias: 'd',
+            desc: 'The description of the project for package.json, etc.'
+        });
+        this.description = this.options.description;
+
+    } catch (e) {
+        console.log(e);
+        process.exit(1);
+    }
+
+    console.log('!!!');
+    console.log(this.headless);
+    console.log(this.name);
+    console.log(this.description);
 }
 
 function configuring() {

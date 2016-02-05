@@ -14,9 +14,9 @@
     "lint": "gulp eslint",
     "outdated": "gulp outdated",
     "postinstall": "npm run bower install && node install.js",
-    "start": "ionic serve",
+    "start": "gulp serve",
     "test": "gulp build",
-    "upload": "gulp test && ENV=production gulp build && ionic upload"
+    "upload": "gulp test && ENV=production gulp build"
   },
   "devDependencies": {
     "bower": "^1.6.3",

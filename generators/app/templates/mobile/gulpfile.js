@@ -90,6 +90,8 @@ gulp.task('assets', false, assets);
 gulp.task('build', 'Removes previous builds, compiles js, compiles less', build);
 gulp.task('js', 'Compiles js', js);
 gulp.task('jsTests', 'Compiles js tests', jsTests);
+gulp.task('serve', 'Removes previous build, compiles js, compiles sass, watches', ['build', 'watch'], serve);
+
 
 // JS Test Related
 gulp.task('eslint', 'Lints your code', lint);
@@ -366,6 +368,16 @@ function runTests(done) {
         runTestsDone = true;
         done();
     }
+}
+
+function serve(done) {
+
+    return connect.server({
+        port: 8100,
+        livereload: true,
+        root: ["www"],
+        fallback: "www/index.html"
+    }, done);
 }
 
 function watchTask() {

@@ -48,14 +48,10 @@ function constructor() {
         this.description = this.options.description;
 
     } catch (e) {
-        console.log(e);
+        this.log(e);
         process.exit(1);
     }
 
-    console.log('!!!');
-    console.log(this.headless);
-    console.log(this.name);
-    console.log(this.description);
 }
 
 function configuring() {

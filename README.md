@@ -53,9 +53,9 @@ If you want to set your default answers, create a file in your home directory (`
 ```json
 {
    "packageVersion": "0.0.1",
-   "packageAuthor": "Olive Technology",
-   "packageAuthorEmail": "support@olivetech.com",
-   "packageAuthorWeb": "www.OliveTech.com",
+   "packageAuthor": "",
+   "packageAuthorEmail": "",
+   "packageAuthorWeb": "",
    "packageLicense": ["UNLICENSED", "MIT", "Apache-2.0"],
    "packagePrivate": true,
    "installMobile": true,
@@ -65,7 +65,7 @@ If you want to set your default answers, create a file in your home directory (`
    "initGit": true
 }
 ```
-You can include as many or as few of these options as you want to override.
+You can include as many or as few of these options as you want to override. What's show above are the defaults the generator will fall back to if you don't specify an override in `.hydbridconfig.json`.
 
 Keep in mind that the license types should be valid [SPDX values](https://spdx.org/licenses/). If you do not wish to extend licensing rights to others, you should include "UNLICENSED" as an option. For version numbers, you must provide a valid [node semver](https://github.com/npm/node-semver).
 

@@ -8,6 +8,7 @@ var err = null,
 InstallGitHooks();
 InstallNpmGlobals();
 IonicStateReset();
+IonicResourceGenerate();
 RunBower();
 RunGulp();
 
@@ -96,6 +97,16 @@ function IonicStateReset() {
         console.log('Error running ionic state reset');
         shell.exit(1);
     }
+}
+
+function IonicResourceGenerate() {
+    console.log('Running ionic resources');
+
+    if (shell.exec('ionic resources').code != 0) {
+        console.log('Error running ionic resources');
+        shell.exit(1);
+    }
+
 }
 
 // Bower ************************************************************************
